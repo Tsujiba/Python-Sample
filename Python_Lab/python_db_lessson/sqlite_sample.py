@@ -3,7 +3,7 @@ import sqlite3
 """
 ・sqlite3 Download → URL:https://www.sqlite.org/download.html
 展開して、anaconda3のScript配下に移動しておく
-""" 
+"""
 
 # DB NAME
 TEST_DB = 'sqlite_test.db'
