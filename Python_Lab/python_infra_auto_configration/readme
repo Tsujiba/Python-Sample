@@ -9,7 +9,7 @@ vagrant status
 # Vagrantfileで記述したserver1のprovision（スクリプト実行箇所）をもう1度実行したい場合など
 vagrant provison server1
 
-# serverがnot createrdなどなっていた場合にサーバ１だけ立ち上げるとき
+# serverがnot createrdなどなっていた場合にサーバ１だけ立ち上げると
 vagrant up server1
 
 # サーバを再起動
