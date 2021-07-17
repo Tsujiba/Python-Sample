@@ -1,0 +1,28 @@
+Vagrantfileのディレクトリで
+
+# Vagrantfileで記述したVMを立ち上げる（全て）
+vagrant up
+
+# VMの状態を確認
+vagrant status
+
+# Vagrantfileで記述したserver1のprovision（スクリプト実行箇所）をもう1度実行したい場合など
+vagrant provison server1
+
+# serverがnot createrdなどなっていた場合にサーバ１だけ立ち上げると
+vagrant up server1
+
+# サーバを再起動
+vagrant reload server1
+
+# サーバのシャットダウン
+vagrant halt
+
+# VMを削除
+vagrant destloy 
+
+# mainサーバに接続
+vagrant ssh main
+
+ssh root@IPadress
+

@@ -1,0 +1,45 @@
+#######################################################
+・my sql how to use memo
+環境OS 名	Microsoft Windows 10 Home
+バージョン	10.0.19042 ビルド 19042
+システムの種類	x64-ベース PC
+MySQL：Server version: 8.0.24
+#######################################################
+
+#######################################################
+1.準備
+#######################################################
+
+#mysqlをインストールし、Cに移動し、dataフォルダを作成しておく
+
+管理者でコマンドプロンプトへ移動
+
+# mysqlをWindowsに登録
+mysql --install
+
+# mysqlの初期化
+mysqld --initialize --console
+
+-> rootユーザが作成
+　 パスワード作成される：t3Ahpyq(jgyd
+
+#dataフォルダにDBファイルが作成されている
+
+
+# mysqlのサービスを開始
+net start mysql
+
+(# mysqlのサービスを停止)
+net stop mysql
+
+# mysqlにrootでログイン	
+mysql -u root -p
+初期パスワード入力
+
+成功すると>mysqlがでる
+
+#root userのパスワード変更 
+ALTER USER 'root'@'localhost' identified BY 'tsujiba';
+
+# mysqlをログアウト
+exit
