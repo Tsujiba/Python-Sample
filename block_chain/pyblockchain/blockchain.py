@@ -1,9 +1,11 @@
-import re
 import sys
 import logging
 import time
 import hashlib
 import json
+
+from ecdsa import NIST256p
+from ecdsa import VerifyingKey
 
 import utils
 
@@ -37,14 +39,34 @@ class BlockChain(object):
         sorted_block = json.dumps(block, sort_keys=True)
         return hashlib.sha256(sorted_block.encode()).hexdigest()
     
-    def add_transaction(self, sender_blockchain_address, recipient_blockchain_address, value):
+    def add_transaction(self, sender_blockchain_address, recipient_blockchain_address, value,
+                        sender_public_key=None, signature=None):
         transaction = utils.sorted_dict_by_key({
             'sender_blockchain_address': sender_blockchain_address,
             'recipient_blockchain_address': recipient_blockchain_address,
             'value': float(value)
         })
-        self.transaction_pool.append(transaction)
-        return True
+        
+        if sender_blockchain_address == MINING_SENDER:
+            self.transaction_pool.append(transaction)
+            return True
+        
+        if self.verify_transaction_signature(sender_public_key, signature, transaction):
+            self.transaction_pool.append(transaction)
+            return True
+        return False
+    
+    def verify_transaction_signature(
+        self, sender_public_key, signature, transaction):
+        sha256 = hashlib.sha256()
+        sha256.update(str(transaction).encode('utf-8'))
+        message = sha256.digest()
+        signature_byte = bytes().fromhex(signature)
+        verifying_key = VerifyingKey.from_string(
+            bytes().fromhex(sender_public_key), curve=NIST256p
+        )
+        verifying_key = verifying_key.verify(signature_byte, message)
+        return verifying_key
     
     def valid_proof(self, transaction, previous_hash, nonce, difficulty=MINING_DIFFCULTY):
         guess_block = utils.sorted_dict_by_key({
